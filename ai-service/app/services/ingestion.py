@@ -12,10 +12,6 @@ settings = get_settings()
 
 
 def _notify_backend(document_id: str, status: str, error: str = "") -> None:
-    if not settings.internal_api_key:
-        logger.warning("Skipping backend status callback because INTERNAL_API_KEY is missing")
-        return
-
     payload = {"documentId": document_id, "status": status, "error": error}
     url = f"{settings.backend_url}/api/documents/internal/status"
     headers = {"x-internal-api-key": settings.internal_api_key}

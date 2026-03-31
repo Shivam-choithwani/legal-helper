@@ -79,7 +79,7 @@ export const createMessage = asyncHandler(async (req, res) => {
 			query: content,
 			sessionId: String(chat._id),
 			userId: String(req.user._id),
-			useRag,
+			useRag: false,
 		});
 	}
 

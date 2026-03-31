@@ -64,17 +64,27 @@ export function ChatPage() {
 	};
 
 	return (
-		<main className="p-4 max-w-7xl mx-auto grid md:grid-cols-[280px_1fr] gap-4">
+		<div className="flex h-screen bg-neutral-50 overflow-hidden">
+			{/* Sidebar */}
 			<Sidebar
 				chats={chats}
 				activeChatId={currentChat?._id}
 				onSelectChat={onSelectChat}
 				onNewChat={onNewChat}
 			/>
-			<section>
-				<ChatWindow messages={messages} thinking={thinking} />
-				<MessageComposer onSend={onSend} disabled={thinking} />
+
+			{/* Main Chat Area */}
+			<section className="flex-1 flex flex-col h-screen overflow-hidden">
+				{/* Chat Messages Container */}
+				<div className="flex-1 overflow-y-auto">
+					<ChatWindow messages={messages} thinking={thinking} />
+				</div>
+
+				{/* Input Section - Sticky Bottom */}
+				<div className="border-t border-neutral-200 bg-white shadow-lg">
+					<MessageComposer onSend={onSend} disabled={thinking} />
+				</div>
 			</section>
-		</main>
+		</div>
 	);
 }

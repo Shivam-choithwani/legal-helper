@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ path: process.env.ENV_FILE || '.env.example' });
 
 const devAuthBypass = process.env.DEV_AUTH_BYPASS === 'true';
 if ((process.env.NODE_ENV || 'development') === 'production' && devAuthBypass) {
@@ -16,6 +16,7 @@ const required = [
 
 for (const key of required) {
 	if (!process.env[key]) {
+		console.error(`Missing required environment variable: ${key}`);
 		throw new Error(`Missing required environment variable: ${key}`);
 	}
 }

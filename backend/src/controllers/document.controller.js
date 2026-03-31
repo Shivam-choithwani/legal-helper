@@ -7,21 +7,17 @@ import { computeChecksum } from '../utils/upload.js';
 import { uploadToAiService } from '../services/ai.service.js';
 
 export const uploadDocument = asyncHandler(async (req, res) => {
-	if (!req.file) {
-		throw new ApiError(400, 'File is required');
-	}
+	if (!req.file) throw new ApiError(400, 'File is required');
 
 	const fileBuffer = fs.readFileSync(req.file.path);
 	const checksum = computeChecksum(fileBuffer);
 
 	let document = await Document.findOne({ userId: req.user._id, checksum });
-	if (document) {
-		return res.status(200).json({
-			message: 'Document already exists, reusing existing record',
-			document,
-		});
-	}
-
+	if (document) return res.status(200).json({
+		message: 'Document already exists, reusing existing record',
+		document,
+	});
+	
 	document = await Document.create({
 		userId: req.user._id,
 		filename: req.file.filename,
