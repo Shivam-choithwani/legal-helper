@@ -9,3 +9,9 @@ python-docx==1.1.2
 numpy==2.2.1
 pydantic-settings==2.7.1
 google-genai>=1.0.0
+
+
+# Docling — semantic document parsing (replaces pypdf + python-docx)
+docling>=2.0.0
+docling-core>=2.0.0
+easyocr>=1.7.0
